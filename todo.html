@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo App</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fdfcfb, #e2d1c3);
+      padding: 40px;
+      text-align: center;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #ff6b6b;
+      margin-bottom: 30px;
+    }
+
+    #todoInput {
+      padding: 12px;
+      width: 250px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    #todoInput:focus {
+      outline: none;
+      border-color: #ff6b6b;
+    }
+
+    #addBtn {
+      padding: 12px 16px;
+      margin-left: 10px;
+      background-color: #6c5ce7;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #addBtn:hover {
+      background-color: #4b4dbf;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 30px;
+    }
+
+    li {
+      background-color: #fff;
+      padding: 15px 20px;
+      margin: 12px auto;
+      width: 320px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.2s;
+    }
+
+    li:hover {
+      transform: scale(1.02);
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    .btn {
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .doneBtn {
+      background-color: #00b894;
+      color: white;
+      margin-right: 8px;
+    }
+
+    .doneBtn:hover {
+      background-color: #019172;
+    }
+
+    .deleteBtn {
+      background-color: #d63031;
+      color: white;
+    }
+
+    .deleteBtn:hover {
+      background-color: #b02324;
+    }
+
+    @media (max-width: 400px) {
+      li {
+        width: 90%;
+      }
+
+      #todoInput {
+        width: 70%;
+        margin-bottom: 10px;
+      }
+
+      #addBtn {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Todo App</h1>
+
+  <input type="text" id="todoInput" placeholder="Enter a task..." />
+  <button id="addBtn">Add</button>
+
+  <ul id="todoList"></ul>
+
+  <script>
+    const input = document.getElementById("todoInput");
+    const addBtn = document.getElementById("addBtn");
+    const todoList = document.getElementById("todoList");
+
+    addBtn.addEventListener("click", addTodo);
+
+    function addTodo() {
+      const task = input.value.trim();
+
+      if (task === "") {
+        alert("Please enter a task!");
+        return;
+      }
+
+      const li = document.createElement("li");
+
+      const taskText = document.createElement("span");
+      taskText.textContent = task;
+
+      const doneBtn = document.createElement("button");
+      doneBtn.textContent = "Mark as Done";
+      doneBtn.className = "btn doneBtn";
+      doneBtn.onclick = () => {
+        taskText.classList.toggle("done");
+      };
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.className = "btn deleteBtn";
+      deleteBtn.onclick = () => {
+        li.remove();
+      };
+
+      const btnWrapper = document.createElement("div");
+      btnWrapper.appendChild(doneBtn);
+      btnWrapper.appendChild(deleteBtn);
+
+      li.appendChild(taskText);
+      li.appendChild(btnWrapper);
+
+      todoList.appendChild(li);
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>
